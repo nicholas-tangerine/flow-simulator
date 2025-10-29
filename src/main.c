@@ -3,36 +3,43 @@
 
 #include "noise.h"
 #include "vectors.h"
+#include "vortex.h"
 #include "particle.h"
+#include "particle_sys.h"
 #include "debug_utils.h"
 
 #define IMAGE_WIDTH 1800
 #define IMAGE_HEIGHT (IMAGE_WIDTH / 2)
 
-#define PARTICLES_PER_ROW 100
-#define PARTICLES_PER_COL (PARTICLES_PER_ROW / 2)
-#define STREAMLINES_ITERATIONS 40
+#define VORTEX_ALPHA -2e-2
+#define VORTEX_GAMMA -1e4
+#define VORTEX_NU -2.25e2
+#define VORTEX_CENTER_X (IMAGE_WIDTH / 2)
+#define VORTEX_CENTER_Y (IMAGE_HEIGHT / 2)
+
+#define PARTICLE_SYS_NUM_PARTS 4000000
+#define PARTICLE_SYS_MAX_X ((double) IMAGE_WIDTH)
+#define PARTICLE_SYS_MAX_Y ((double) IMAGE_HEIGHT)
+
+#define SIMULATE_DT 5.0
+
+#define STREAMLINES_PARTICLES_PER_ROW 100
+#define STREAMLINES_PARTICLES_PER_COL (STREAMLINES_PARTICLES_PER_ROW / 2)
+#define STREAMLINES_ITERATIONS 1000
 #define STREAMLINES_DT 3.0
 
-int main(int argc, char **argv) {
-    vector_field_t *vector_field = vector_field_init(IMAGE_WIDTH + 1, IMAGE_HEIGHT + 1);
-    scalar_field_t *scalar_field = scalar_field_init(IMAGE_WIDTH, IMAGE_HEIGHT);
+int main(void) {
+    vector_field_t *burgers_vortex_field = burgers_vortex(VORTEX_ALPHA, VORTEX_GAMMA, VORTEX_NU, IMAGE_WIDTH, IMAGE_HEIGHT, VORTEX_CENTER_X, VORTEX_CENTER_Y);
+    particle_t **particle_sys = particle_system_random_init(PARTICLE_SYS_NUM_PARTS, PARTICLE_SYS_MAX_X, PARTICLE_SYS_MAX_Y);
 
-    int *streamlines = draw_streamlines_to_buffer(vector_field, PARTICLES_PER_ROW, PARTICLES_PER_COL, STREAMLINES_ITERATIONS, STREAMLINES_DT);
-
-    write_streamlines_to_ppm(vector_field, streamlines, "output.ppm");
-
-    double *intensity_buffer = generate_intensity_field(IMAGE_WIDTH, IMAGE_HEIGHT);
-
-    write_intensity_buffer_to_ppm(intensity_buffer, IMAGE_WIDTH, IMAGE_HEIGHT, "intensity.ppm");
+    particle_sys_advect(burgers_vortex_field, particle_sys, PARTICLE_SYS_NUM_PARTS, SIMULATE_DT);
 
     /**
      * FREE MEMORY
      */
-    vector_field_free(&vector_field);
-    scalar_field_free(&scalar_field);
-    free(streamlines);
-    free(intensity_buffer);
+    vector_field_free(&burgers_vortex_field);
+    particle_sys_free(particle_sys, PARTICLE_SYS_NUM_PARTS);
 
     return 0;
 }
+
