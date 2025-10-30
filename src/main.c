@@ -20,7 +20,6 @@
 #define PARTICLE_SYS_NUM_PARTS 4000000
 #define PARTICLE_SYS_MAX_X ((double) IMAGE_WIDTH)
 #define PARTICLE_SYS_MAX_Y ((double) IMAGE_HEIGHT)
-
 #define SIMULATE_DT 5.0
 
 #define STREAMLINES_PARTICLES_PER_ROW 100
@@ -30,16 +29,15 @@
 
 int main(void) {
     vector_field_t *burgers_vortex_field = burgers_vortex(VORTEX_ALPHA, VORTEX_GAMMA, VORTEX_NU, IMAGE_WIDTH, IMAGE_HEIGHT, VORTEX_CENTER_X, VORTEX_CENTER_Y);
-    particle_t **particle_sys = particle_system_random_init(PARTICLE_SYS_NUM_PARTS, PARTICLE_SYS_MAX_X, PARTICLE_SYS_MAX_Y);
+    vector_field_normalize(burgers_vortex_field);
 
-    particle_sys_advect(burgers_vortex_field, particle_sys, PARTICLE_SYS_NUM_PARTS, SIMULATE_DT);
+    particle_sys_t *sys = particle_system_random_init(PARTICLE_SYS_NUM_PARTS, PARTICLE_SYS_MAX_X, PARTICLE_SYS_MAX_Y);
 
     /**
      * FREE MEMORY
      */
-    vector_field_free(&burgers_vortex_field);
-    particle_sys_free(particle_sys, PARTICLE_SYS_NUM_PARTS);
+    vector_field_free(burgers_vortex_field);
+    particle_sys_free(sys);
 
     return 0;
 }
-

@@ -73,7 +73,11 @@ void vector_field_normalize(vector_field_t *vectors) {
     }
 }
 
-void vector_field_free(vector_field_t **vectors) {
+void vector_field_free(vector_field_t *vectors) {
+    free(vectors->x_component);
+    free(vectors->y_component);
+    free(vectors);
+    /*
     vector_field_t *field = *vectors;
 
     free(field->x_component);
@@ -81,6 +85,7 @@ void vector_field_free(vector_field_t **vectors) {
 
     free(*vectors);
     *vectors = NULL;
+    */
 
     return;
 }

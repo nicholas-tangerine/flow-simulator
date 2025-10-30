@@ -28,7 +28,11 @@ typedef struct {
  */
 vector_field_t *vector_field_init(uint32_t width, uint32_t height);
 
-void vector_field_free(vector_field_t **vectors);
+vector_field_t *vector_field_init_random(uint32_t width, uint32_t height);
+
+void vector_field_normalize(vector_field_t *vectors);
+
+void vector_field_free(vector_field_t *vectors);
 
 /**
  * Allocates memory for the scalar field to be used to store the Perlin Noise. Matrix stored in 1d array

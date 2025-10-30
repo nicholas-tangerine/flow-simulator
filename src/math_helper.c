@@ -17,14 +17,10 @@ double dot_prod(double x1, double x2, double y1, double y2) {
 }
 
 double lerp(double x, double y, double u) {
-    //  `U` MUST BE NORMALIZED BETWEEN 0 AND 1
-
     return u * x + (1-u) * y;
 
 }
 
 double fade(double t) {
-    // Perlin's smoothstep function: 6t^5 - 15t^4 + 10t^3
-    // This has zero first and second derivatives at t=0 and t=1
     return t * t * t * (t * (t * 6.0 - 15.0) + 10.0);
 }

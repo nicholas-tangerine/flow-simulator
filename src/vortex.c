@@ -7,8 +7,7 @@ double g(double alpha, double nu, double r) {
     return 1 - exp((-alpha * r * r) / (2 * nu));
 }
 
-vector_field_t *burgers_vortex(double alpha, double gamma, double nu, uint32_t
-        width, uint32_t height, uint32_t center_x, uint32_t center_y) {
+vector_field_t *burgers_vortex(double alpha, double gamma, double nu, uint32_t width, uint32_t height, uint32_t center_x, uint32_t center_y) {
     vector_field_t *vectors = vector_field_init(width, height);
 
     for (int j = 0; j < (int) height; j++) {
@@ -29,8 +28,6 @@ vector_field_t *burgers_vortex(double alpha, double gamma, double nu, uint32_t
             vectors->y_component[index] = v_y;
         }
     }
-
-    vector_field_normalize(vectors);
 
     return vectors;
 }

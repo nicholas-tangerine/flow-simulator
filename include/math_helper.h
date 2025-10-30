@@ -27,4 +27,8 @@ int get_index(uint32_t width, uint32_t height, int x, int y);
  */
 double dot_prod(double x1, double x2, double y1, double y2);
 
+double lerp(double x, double y, double u);
+
+double fade(double t);
+
 #endif

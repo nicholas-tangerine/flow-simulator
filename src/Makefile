@@ -2,7 +2,7 @@ CC      := gcc
 CFLAGS  := -Wconversion -Wpedantic -Wall -Wextra -g -O0 -I "../include/"
 LDFLAGS := -ltiff -lm
 
-SRC     := main.c vectors.c vortex.c debug_utils.c particle.c particle_sys.c math_helper.c noise.c
+SRC     := main.c vectors.c debug_utils.c particle.c math_helper.c noise.c vortex.c particle_sys.c
 OBJ     := $(SRC:.c=.o)
 TARGET  := main
 

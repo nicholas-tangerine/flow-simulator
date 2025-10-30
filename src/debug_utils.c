@@ -57,7 +57,7 @@ int *draw_streamlines_to_buffer(vector_field_t *vectors, uint32_t particle_per_r
 
     int *buffer = calloc(area, sizeof(int));            //      all values are 0 rn
 
-    particle_t **particle_sys = calloc(particle_per_row * particle_per_col, sizeof(particle_t *));
+    particle_t **particles = calloc(particle_per_row * particle_per_col, sizeof(particle_t *));
     uint32_t particles_index = 0;
 
     uint32_t x_step = width / particle_per_row;
@@ -65,16 +65,15 @@ int *draw_streamlines_to_buffer(vector_field_t *vectors, uint32_t particle_per_r
 
     for (uint32_t x = 0; x < particle_per_row; x++) {
         for (uint32_t y = 0; y < particle_per_col; y++) {
-            particle_sys[particles_index] = particle_init(x_step * x, y_step * y);
+            particles[particles_index] = particle_init(x_step * x, y_step * y);
             buffer[get_index(width, height, (int) x_step * (int) x, (int) y_step * (int) y)] = 1;
             particles_index++;
         }
     }
 
-
     for (uint32_t a = 0; a < steps; a++) {
         for (uint32_t i = 0; i < particles_count; i++) {
-            particle_t *particle = particle_sys[i];
+            particle_t *particle = particles[i];
 
             int x = (int) floor(particle->x);
             int y = (int) floor(particle->y);
@@ -93,7 +92,7 @@ int *draw_streamlines_to_buffer(vector_field_t *vectors, uint32_t particle_per_r
         }
     }
 
-    particle_sys_free(particle_sys, particles_count);
+    free(particles);
 
     return buffer;
 }

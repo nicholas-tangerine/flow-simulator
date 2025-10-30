@@ -8,29 +8,6 @@
 
 #define PERLIN_PIXELS_PER_GRID 120
 
-double *generate_intensity_field_perlin(uint32_t width, uint32_t height) {
-    uint32_t perlin_width = width / PERLIN_PIXELS_PER_GRID+1;
-    uint32_t perlin_height = height / PERLIN_PIXELS_PER_GRID+1;
-
-    vector_field_t *perlin_field = vector_field_init_random(perlin_width, perlin_height);
-
-    double *intensity_buffer = calloc(width * height, sizeof(double));
-
-    for (int y = 0; y < (int) height; y++) {
-        for (int x = 0; x < (int) width; x++) {
-            int intensity_index = get_index(width, height, x, y);
-            double intensity_val = generate_intensity_point_perlin(perlin_field, x, y);
-
-            // Map from [-1, 1] to [0, 1]
-            intensity_val = (intensity_val + 1.0) / 2.0;
-            
-            intensity_buffer[intensity_index] = intensity_val;
-        }
-    }
-
-    return intensity_buffer;
-}
-
 double generate_intensity_point_perlin(vector_field_t *perlin_field, int intensity_x, int intensity_y) {
     uint32_t perlin_width = perlin_field->field_width;
     uint32_t perlin_height = perlin_field->field_height;
@@ -78,3 +55,27 @@ double generate_intensity_point_perlin(vector_field_t *perlin_field, int intensi
 
     return intensity;
 }
+
+double *generate_intensity_field_perlin(uint32_t width, uint32_t height) {
+    uint32_t perlin_width = width / PERLIN_PIXELS_PER_GRID+1;
+    uint32_t perlin_height = height / PERLIN_PIXELS_PER_GRID+1;
+
+    vector_field_t *perlin_field = vector_field_init_random(perlin_width, perlin_height);
+
+    double *intensity_buffer = calloc(width * height, sizeof(double));
+
+    for (int y = 0; y < (int) height; y++) {
+        for (int x = 0; x < (int) width; x++) {
+            int intensity_index = get_index(width, height, x, y);
+            double intensity_val = generate_intensity_point_perlin(perlin_field, x, y);
+
+            // Map from [-1, 1] to [0, 1]
+            intensity_val = (intensity_val + 1.0) / 2.0;
+            
+            intensity_buffer[intensity_index] = intensity_val;
+        }
+    }
+
+    return intensity_buffer;
+}
+
