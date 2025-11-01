@@ -1,5 +1,6 @@
-![progress image oct 31](./docs/images/streamlines.png "streamlines")
 # flow-simulator
+![progress image oct 31](./docs/images/streamlines.png "streamlines")
+*extracted flow from OFM (see github.com/nicholas-tangerine/optical-flow)*
 
 generates a bunch of particles randomly distributed on a plane
 a velocity field is applied, moving the particles along a burgers vortex
