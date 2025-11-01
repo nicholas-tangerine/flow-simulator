@@ -1,5 +1,5 @@
-#ifndef NOISE_H
-#define NOISE_H
+#ifndef VECTORS_H
+#define VECTORS_H
 
 #include <stdint.h>
 

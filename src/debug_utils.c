@@ -57,7 +57,7 @@ int *draw_streamlines_to_buffer(vector_field_t *vectors, uint32_t particle_per_r
 
     int *buffer = calloc(area, sizeof(int));            //      all values are 0 rn
 
-    particle_t **particles = calloc(particle_per_row * particle_per_col, sizeof(particle_t *));
+    particle_t *particles = calloc(particle_per_row * particle_per_col, sizeof(particle_t));
     uint32_t particles_index = 0;
 
     uint32_t x_step = width / particle_per_row;
@@ -73,7 +73,7 @@ int *draw_streamlines_to_buffer(vector_field_t *vectors, uint32_t particle_per_r
 
     for (uint32_t a = 0; a < steps; a++) {
         for (uint32_t i = 0; i < particles_count; i++) {
-            particle_t *particle = particles[i];
+            particle_t *particle = &particles[i];
 
             int x = (int) floor(particle->x);
             int y = (int) floor(particle->y);
@@ -108,7 +108,7 @@ void write_streamlines_to_ppm(vector_field_t *vectors, int *streamlines, char *o
     for (uint32_t y = 0; y < height; y++) {
         for (uint32_t x = 0; x < width; x++) {
             int i = get_index(width, height, (int) x, (int) y);
-            int streamlines_val = streamlines[i] == 1 ? 255 : 0;
+            int streamlines_val = streamlines[i];
 
             fputc(streamlines_val, fptr);
         }

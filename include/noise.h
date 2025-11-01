@@ -1,5 +1,5 @@
 #ifndef NOISE_H
-#define NOSIE_H
+#define NOISE_H
 
 #include <stdint.h>
 

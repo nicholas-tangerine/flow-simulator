@@ -21,8 +21,16 @@ vector_field_t *burgers_vortex(double alpha, double gamma, double nu, uint32_t w
             double v_r = -alpha * r;
             double v_theta = (gamma * g(alpha, nu, r)) / (2 * (double) M_PI * r);
 
-            double v_x = (v_r * (double) x / r) - (v_theta * (double) y / r);
-            double v_y = (v_r * (double) y / r) + (v_theta * (double) x / r);
+            double v_x, v_y;
+
+            if (r == 0) {
+                v_x = 0;
+                v_y = 0;
+            }
+            else {
+                v_x = (v_r * (double) x / r) - (v_theta * (double) y / r);
+                v_y = (v_r * (double) y / r) + (v_theta * (double) x / r);
+            }
 
             vectors->x_component[index] = v_x;
             vectors->y_component[index] = v_y;

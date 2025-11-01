@@ -5,7 +5,7 @@
 #include "particle.h"
 
 typedef struct {
-    particle_t **particles;
+    particle_t *particles;
     uint32_t num_particles;
 } particle_sys_t;
 

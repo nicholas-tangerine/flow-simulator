@@ -18,13 +18,13 @@ particle_sys_t *particle_system_random_init(uint32_t num_particles, double max_x
 }
 
 void particle_sys_advect(vector_field_t *velo_field, particle_sys_t *particle_sys, double dt) {
-    particle_t **particles = particle_sys->particles;
+    particle_t *particles = particle_sys->particles;
 
     uint32_t velo_field_width = velo_field->field_width;
     uint32_t velo_field_height = velo_field->field_height;
 
     for (int i = 0; i < (int) particle_sys->num_particles; i++) {
-        particle_t *curr_particle = particles[i];
+        particle_t *curr_particle = &particles[i];
 
         int pos_x = (int) curr_particle->x;
         int pos_y = (int) curr_particle->y;
@@ -43,11 +43,8 @@ void particle_sys_advect(vector_field_t *velo_field, particle_sys_t *particle_sy
 }
 
 void particle_sys_free(particle_sys_t *particle_sys) {
-    particle_t **particles = particle_sys->particles;
+    particle_t *particles = particle_sys->particles;
 
-    for (int i = 0; i < (int) particle_sys->num_particles; i++) {
-        particle_free(particles[i]);
-    }
-
+    free(particles);
     free(particle_sys);
 }

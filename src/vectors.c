@@ -61,7 +61,7 @@ void vector_field_normalize(vector_field_t *vectors) {
         double v_x = vectors->x_component[i];
         double v_y = vectors->y_component[i];
 
-        double curr_magnitude = ((v_x*v_x) + (v_y*v_y));
+        double curr_magnitude = sqrt((v_x*v_x) + (v_y*v_y));
         max_magnitude = curr_magnitude > max_magnitude ? curr_magnitude : max_magnitude;
     }
 
