@@ -118,6 +118,24 @@ scalar_field_t *scalar_field_init_random(uint32_t width, uint32_t height) {
     return scalars;
 }
 
+scalar_field_t *vector_magnitude_field(vector_field_t *vectors) {
+    int width = (int) vectors->field_width;
+    int height = (int) vectors->field_height;
+
+    scalar_field_t *scalars = scalar_field_init((uint32_t) width, (uint32_t) height);
+
+    for (int i = 0; i < width * height; i++) {
+        double v_x = vectors->x_component[i];
+        double v_y = vectors->y_component[i];
+
+        double mag = sqrt((v_x*v_x) + (v_y*v_y));
+
+        scalars->scalars[i] = mag;
+    }
+
+    return scalars;
+}
+
 void scalar_field_free(scalar_field_t **scalars) {
     scalar_field_t *field = *scalars;
 

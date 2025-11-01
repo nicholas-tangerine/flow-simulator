@@ -33,8 +33,6 @@ void particle_sys_density_normalize(int *buffer, uint32_t buffer_size, int max_i
         max_buffer = curr > max_buffer ? curr : max_buffer;
     }
 
-    printf("max buffer: %d\n", max_buffer);
-
     double scaler = (double) max_intensity / (double) max_buffer;
 
     for (int i = 0; i < (int) buffer_size; i++) {
