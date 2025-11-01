@@ -14,6 +14,9 @@ int *particle_sys_density_map(particle_sys_t *sys, uint32_t width, uint32_t heig
         int x = (int) floor(particle.x);
         int y = (int) floor(particle.y);
 
+        if (x < 0 || x >= (int) width) continue;
+        if (y < 0 || y >= (int) height) continue;
+
         int index = get_index(width, height, x, y);
 
         buffer[index]++;

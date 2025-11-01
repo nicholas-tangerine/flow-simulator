@@ -2,11 +2,11 @@ CC      := gcc
 CFLAGS  := -Wconversion -Wpedantic -Wall -Wextra -g -O0 -I "../include/"
 LDFLAGS := -ltiff -lm
 
-SRC     := main.c vectors.c debug_utils.c particle.c math_helper.c noise.c vortex.c particle_sys.c particle_sys_render.c
+SRC     := main.c vectors.c debug_utils.c particle.c math_helper.c noise.c vortex.c particle_sys.c particle_sys_render.c tiff_wrapper.c
 OBJ     := $(SRC:.c=.o)
 TARGET  := main
 
-MISC	:= *.ppm *.txt
+MISC	:= *.ppm *.txt *.tif
 
 .PHONY: all clean
 

@@ -29,9 +29,6 @@ void particle_sys_advect(vector_field_t *velo_field, particle_sys_t *particle_sy
         int pos_x = (int) curr_particle->x;
         int pos_y = (int) curr_particle->y;
 
-        if (pos_x < 0 || pos_x >= (int) velo_field_width) continue;
-        if (pos_y < 0 || pos_y >= (int) velo_field_height) continue;
-
         int velo_field_index = get_index(velo_field_width, velo_field_height, pos_x, pos_y);
 
         double v_x = velo_field->x_component[velo_field_index];

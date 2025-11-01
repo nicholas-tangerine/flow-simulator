@@ -18,7 +18,7 @@ vector_field_t *burgers_vortex(double alpha, double gamma, double nu, uint32_t w
 
             double r = sqrt( (double) (x*x) + (double) (y*y) );
 
-            double v_r = -alpha * r;
+            double v_r = -1 * alpha * r;
             double v_theta = (gamma * g(alpha, nu, r)) / (2 * (double) M_PI * r);
 
             double v_x, v_y;
