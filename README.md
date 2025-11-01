@@ -1,3 +1,4 @@
+![progress image oct 31](./docs/images/streamlines.png "streamlines")
 # flow-simulator
 
 generates a bunch of particles randomly distributed on a plane
