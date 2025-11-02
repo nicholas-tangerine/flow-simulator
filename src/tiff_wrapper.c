@@ -15,13 +15,15 @@ unsigned char *uchar_convert(int *intensity_buffer, uint32_t len_buffer) {
 void write_bw(unsigned char *intensity_buffer, uint32_t width, uint32_t height, char *output_file) {
     TIFF *tif = TIFFOpen(output_file, "w");
 
-    TIFFSetField(tif, TIFFTAG_BITSPERSAMPLE, 8);
-    TIFFSetField(tif, TIFFTAG_SAMPLESPERPIXEL, 1);
+    TIFFSetField(tif, TIFFTAG_BITSPERSAMPLE, 8);        //  8 bit smaples
+    TIFFSetField(tif, TIFFTAG_SAMPLESPERPIXEL, 1);      //  1 sample per pixel
+    TIFFSetField(tif, TIFFTAG_PHOTOMETRIC, 1);          //  indicate black and white
 
     TIFFSetField(tif, TIFFTAG_ORIENTATION, ORIENTATION_TOPLEFT);
 
     TIFFSetField(tif, TIFFTAG_IMAGELENGTH, height);
     TIFFSetField(tif, TIFFTAG_IMAGEWIDTH, width);
+
 
     for (int y = 0; y < (int) height; y++) {
         int index = y * (int) width;
