@@ -77,15 +77,6 @@ void vector_field_free(vector_field_t *vectors) {
     free(vectors->x_component);
     free(vectors->y_component);
     free(vectors);
-    /*
-    vector_field_t *field = *vectors;
-
-    free(field->x_component);
-    free(field->y_component);
-
-    free(*vectors);
-    *vectors = NULL;
-    */
 
     return;
 }
@@ -136,13 +127,9 @@ scalar_field_t *vector_magnitude_field(vector_field_t *vectors) {
     return scalars;
 }
 
-void scalar_field_free(scalar_field_t **scalars) {
-    scalar_field_t *field = *scalars;
-
-    free(field->scalars);
-    free(*scalars);
-
-    *scalars = NULL;
+void scalar_field_free(scalar_field_t *scalars) {
+    free(scalars->scalars);
+    free(scalars);
 
     return;
 }

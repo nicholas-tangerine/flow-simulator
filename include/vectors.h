@@ -48,6 +48,6 @@ scalar_field_t *scalar_field_init_random(uint32_t width, uint32_t height);
 
 scalar_field_t *vector_magnitude_field(vector_field_t *vectors);
 
-void scalar_field_free(scalar_field_t **scalars);
+void scalar_field_free(scalar_field_t *scalars);
 
 #endif
