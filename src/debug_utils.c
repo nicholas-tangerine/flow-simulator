@@ -85,7 +85,7 @@ int *draw_streamlines_to_buffer(vector_field_t *vectors, uint32_t particle_per_r
             particle->x += x_component[buffer_index] * dt;
             particle->y += y_component[buffer_index] * dt;
 
-            buffer[buffer_index] = 1;
+            buffer[buffer_index] = 255;
         }
         if (a % 1000 == 0) {
             printf("%d%% complete\n", a * 100 / steps);

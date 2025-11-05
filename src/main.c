@@ -10,21 +10,21 @@
 #include "tiff_wrapper.h"
 #include "debug_utils.h"
 
-#define IMAGE_WIDTH 1800
+#define IMAGE_WIDTH 3600
 #define IMAGE_HEIGHT (IMAGE_WIDTH / 2)
 
-#define VORTEX_ALPHA -2e-2
+#define VORTEX_ALPHA (-2e-2)
 #define VORTEX_GAMMA -1e4
 #define VORTEX_NU -2.25e2
 #define VORTEX_CENTER_X (IMAGE_WIDTH / 2)
 #define VORTEX_CENTER_Y (IMAGE_HEIGHT / 2)
 
-#define PARTICLE_SYS_NUM_PARTS 1000000
+#define PARTICLE_SYS_NUM_PARTS 7000000
 #define PARTICLE_SYS_MAX_X ((double) IMAGE_WIDTH)
 #define PARTICLE_SYS_MAX_Y ((double) IMAGE_HEIGHT)
-#define SIMULATE_TIME_STEPS 5
+#define SIMULATE_TIME_STEPS 10
 
-#define STREAMLINE_ITERATIONS 35
+#define STREAMLINE_ITERATIONS 1
 #define STREAMLINE_PARTICLES_PER_ROW 200
 #define STREAMLINE_PARTICLES_PER_COL (STREAMLINE_PARTICLES_PER_ROW / 2)
 #define STREAMLINE_ITERATIONS_DT 0.5
@@ -35,6 +35,9 @@ int main(void) {
 
     scalar_field_t *velo_mag = vector_magnitude_field(burgers_vortex_field);
     write_intensity_buffer_to_ppm(velo_mag->scalars, velo_mag->field_width, velo_mag->field_height, "velo mag.ppm");
+
+    int *streamlines = draw_streamlines_to_buffer(burgers_vortex_field, STREAMLINE_PARTICLES_PER_ROW, STREAMLINE_PARTICLES_PER_COL, STREAMLINE_ITERATIONS, STREAMLINE_ITERATIONS_DT);
+    write_streamlines_to_ppm(burgers_vortex_field, streamlines, "streamlines.ppm");
 
     /**
      * PARTICLE FLOW + I/O
@@ -56,6 +59,8 @@ int main(void) {
     /**
      * FREE MEMORY
      */
+    free(streamlines);
+
     vector_field_free(burgers_vortex_field);
     scalar_field_free(velo_mag);
     particle_sys_free(sys);

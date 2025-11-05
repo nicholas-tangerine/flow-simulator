@@ -21,8 +21,8 @@ void write_bw(unsigned char *intensity_buffer, uint32_t width, uint32_t height, 
 
     TIFFSetField(tif, TIFFTAG_ORIENTATION, ORIENTATION_TOPLEFT);
 
-    TIFFSetField(tif, TIFFTAG_IMAGELENGTH, height);
     TIFFSetField(tif, TIFFTAG_IMAGEWIDTH, width);
+    TIFFSetField(tif, TIFFTAG_IMAGELENGTH, height);
 
 
     for (int y = 0; y < (int) height; y++) {
