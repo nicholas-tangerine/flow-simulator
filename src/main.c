@@ -11,7 +11,7 @@
 #include "debug_utils.h"
 
 #define IMAGE_WIDTH 3600
-#define IMAGE_HEIGHT (IMAGE_WIDTH / 2)
+#define IMAGE_HEIGHT 2300
 
 #define VORTEX_ALPHA (-2e-2)
 #define VORTEX_GAMMA -1e4
